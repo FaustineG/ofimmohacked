@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les annonces de nono</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Les annonces de nono
+
+        <span class="fofocorp">by FofoCorp©</span>
+    </h1>
+
+    <!-- Table to display JSON data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <!-- Table headers will be generated dynamically -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be generated dynamically -->
+        </tbody>
+    </table>
+
+
+    <script>
+        // Function to generate the table from JSON data
+        function generateTable(data) {
+            const table = document.getElementById('dataTable');
+            const thead = table.querySelector('thead tr');
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = '';
+            thead.innerHTML = '';
+
+            const headers = ['Lien', 'Photo', 'Date']
+            // Extract and display headers
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                thead.appendChild(th);
+            });
+
+            // Extract and display rows
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+
+                const url = `https://www.ouestfrance-immo.com/immobilier/vente/appartement/${row.lieu.slug_kl}/${row.nb_pieces}-pieces-${row.id}.htm`
+                const td = document.createElement('td');
+                const a = document.createElement('a')
+                a.href = url;
+                a.textContent = url;
+                td.appendChild(a)
+                tr.appendChild(td);
+
+                const img = document.createElement('img')
+                img.src = row?.photo_url 
+                const tdImg = document.createElement('td');
+                tdImg.appendChild(img)
+                tr.appendChild(tdImg);
+
+
+                let tdDate = document.createElement('td');
+                tdDate.textContent = new Date(row['date_deb_aff']).toLocaleDateString('fr-FR');
+                tr.appendChild(tdDate);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        fetch('http://localhost:3000/data').then(res => res.json()).then(data => {
+            data.sort((flat1, flat2) => {
+                return (
+                    new Date(flat2.date_deb_aff).getTime() - new Date(flat1.date_deb_aff).getTime())
+            })
+            generateTable(data);
+        })
+    </script>
+
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        img {
+            height: 100px;
+        }
+
+        .fofocorp{
+            font-size: x-small;
+        }
+    </style>
+
+</body>
+
+</html>
