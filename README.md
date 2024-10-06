@@ -1,0 +1,6 @@
+- Télécharger le projet (onglet code, puis download zip)
+- Se placer dans le projet dé-zippé
+- Commandes : 
+    - `npm install`
+    - ``npm run start`
+- Ouvrir http://localhost:3000
