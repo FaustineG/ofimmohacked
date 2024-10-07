@@ -2,5 +2,5 @@
 - Se placer dans le projet dé-zippé
 - Commandes : 
     - `npm install`
-    - ``npm run start`
+    - `npm run start`
 - Ouvrir http://localhost:3000

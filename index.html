@@ -31,6 +31,8 @@
         <span class="fofocorp">by FofoCorp©</span>
     </h1>
 
+    <!-- <button id="reload">reload</button> -->
+
     <!-- Table to display JSON data -->
     <table id="dataTable">
         <thead>
@@ -74,7 +76,7 @@
                 tr.appendChild(td);
 
                 const img = document.createElement('img')
-                img.src = row?.photo_url 
+                img.src = row?.photo_url
                 const tdImg = document.createElement('td');
                 tdImg.appendChild(img)
                 tr.appendChild(tdImg);
@@ -88,12 +90,20 @@
             });
         }
 
-        fetch('http://localhost:3000/data').then(res => res.json()).then(data => {
-            data.sort((flat1, flat2) => {
-                return (
-                    new Date(flat2.date_deb_aff).getTime() - new Date(flat1.date_deb_aff).getTime())
+        const loadData = () => {
+
+            fetch('http://localhost:3000/data').then(res => res.json()).then(data => {
+                data.sort((flat1, flat2) => {
+                    return (
+                        new Date(flat2.date_deb_aff).getTime() - new Date(flat1.date_deb_aff).getTime())
+                })
+                generateTable(data);
             })
-            generateTable(data);
+        }
+        loadData()
+
+        document.getElementById('reload').addEventListener('click', () => {
+            fetch('http://localhost:3000/reload', { method: "POST" }).then(() => { console.log("reloaded"); loadData() })
         })
     </script>
 
@@ -106,7 +116,7 @@
             height: 100px;
         }
 
-        .fofocorp{
+        .fofocorp {
             font-size: x-small;
         }
     </style>

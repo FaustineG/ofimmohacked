@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "load": "bash ./toto.sh",
     "start": "concurrently \"bash ./toto.sh\" \"node index.js\""
   },
   "author": "",
@@ -11,6 +12,7 @@
   "dependencies": {
     "concurrently": "^9.0.1",
     "cors": "^2.8.5",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "shelljs": "^0.8.5"
   }
 }
