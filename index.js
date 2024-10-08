@@ -10,7 +10,7 @@ app.use(express.json()); // to support JSON-encoded bodies
 
 app.use(
   cors({
-    origin: "http://localhost:5500", // Allow requests from this origin
+    origin: "*", // Allow requests from this origin,
   }),
   express.static("./")
 );
@@ -21,6 +21,6 @@ app.get("/data", (_req, res) => {
   });
 });
 
-app.listen(p, () => {
+app.listen(p, '0.0.0.0', () => {
   console.log(`listening on port ${p}`);
 });

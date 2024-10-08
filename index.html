@@ -32,7 +32,7 @@
     </h1>
 
     <!-- <button id="reload">reload</button> -->
-
+   <p>Total: <span id="total"></span></p>
     <!-- Table to display JSON data -->
     <table id="dataTable">
         <thead>
@@ -52,8 +52,12 @@
             const table = document.getElementById('dataTable');
             const thead = table.querySelector('thead tr');
             const tbody = table.querySelector('tbody');
-            tbody.innerHTML = '';
+            const total = document.getElementById('total');
+
+ 	    tbody.innerHTML = '';
             thead.innerHTML = '';
+
+	    total.innerHTML = data.length;
 
             const headers = ['Lien', 'Photo', 'Date']
             // Extract and display headers
@@ -92,7 +96,7 @@
 
         const loadData = () => {
 
-            fetch('http://localhost:3000/data').then(res => res.json()).then(data => {
+            fetch('/data').then(res => res.json()).then(data => {
                 data.sort((flat1, flat2) => {
                     return (
                         new Date(flat2.date_deb_aff).getTime() - new Date(flat1.date_deb_aff).getTime())
@@ -102,9 +106,9 @@
         }
         loadData()
 
-        document.getElementById('reload').addEventListener('click', () => {
+       /* document.getElementById('reload').addEventListener('click', () => {
             fetch('http://localhost:3000/reload', { method: "POST" }).then(() => { console.log("reloaded"); loadData() })
-        })
+        })*/
     </script>
 
     <style>
