@@ -12,7 +12,9 @@ curl -s $URL -o $OUTPUT_FILE
 
 # Check if the curl command was successful
 if [ $? -eq 0 ]; then
+    echo "$(date)"
     echo "Data successfully fetched and saved to $OUTPUT_FILE"
 else
+    echo "$(date)"
     echo "Failed to fetch data from $URL"
 fi

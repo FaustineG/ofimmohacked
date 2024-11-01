@@ -16,11 +16,9 @@ app.use(
 );
 
 app.get("/data", (_req, res) => {
-  shell.exec("./toto.sh", (code, stdout, sdteerr) => {
-    res.status(200).json(data.data);
-  });
+  res.status(200).json(data.data);
 });
 
-app.listen(p, '0.0.0.0', () => {
+app.listen(p, "0.0.0.0", () => {
   console.log(`listening on port ${p}`);
 });
