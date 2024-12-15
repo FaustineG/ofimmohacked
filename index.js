@@ -1,10 +1,10 @@
 const express = require("express");
+const fs = require("node:fs");
 const shell = require("shelljs");
 
 const app = express();
 const p = 3000;
 const cors = require("cors");
-const data = require("./data.json");
 
 app.use(express.json()); // to support JSON-encoded bodies
 
@@ -15,8 +15,12 @@ app.use(
   express.static("./")
 );
 
-app.get("/data", (_req, res) => {
-  res.status(200).json(data.data);
+app.get("/data", async (_req, res) => {
+  fs.readFile("./data.json", "utf-8", (err, data) => {
+    const datadata = JSON.parse(data).data;
+    console.log(datadata.length)
+    res.status(200).json(datadata);
+  });
 });
 
 app.listen(p, "0.0.0.0", () => {
